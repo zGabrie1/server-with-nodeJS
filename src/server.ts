@@ -12,16 +12,10 @@ app.use(express.json());
 
 // Corpo (Request Body): dados para criação ou atualização de um registro
 // Rout params: indentificar qual recurso eu quero atualizar ou deletar
+// Query params: paginação, filtros, ordenação
 
-app.post('/users', (request, reponse) => {
-    console.log(request.body);
-    
-    const users = [
-        {name: "Gabriel", age: 21 },
-        {name: "Ricardo", age: 30}
-    ]
-
-    return reponse.send(users)
+app.get('/', (request, reponse) => {
+    return reponse.send({messege: "Olá!"})
 });
 
 // localhost:3333
