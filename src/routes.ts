@@ -1,13 +1,34 @@
 import express from 'express';
+import db from './database/connction';
 
 const routes = express.Router();
 
 
-routes.post('/classes', (request, reponse) => {
-    const data = request.body;
+routes.post('/classes', async (request, reponse) => {
+    const {
+        name,
+        avatar,
+        whatsapp,
+        bio,
+        subject,
+        cost,
+        schedule
+    } = request.body;
 
-    console.log(data);
+    const insertedUsersIds = await db('users').insert({
+        name,
+        avatar,
+        whatsapp,
+        bio,
+    });
 
+    const user_id = insertedUsersIds[0];
+
+    await db('classes').insert({
+        subject,
+        cost,
+        user_id,
+    });
     return reponse.send();
 });
 
